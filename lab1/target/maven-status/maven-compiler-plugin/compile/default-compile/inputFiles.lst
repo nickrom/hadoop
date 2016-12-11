@@ -1,6 +1,0 @@
-/home/user/hadoop/lab1/src/main/java/sortflights/DelayedFlightsMapper.java
-/home/user/hadoop/lab1/src/main/java/sortflights/DelayedFlightsPartitioner.java
-/home/user/hadoop/lab1/src/main/java/sortflights/SortDelayedFlights.java
-/home/user/hadoop/lab1/src/main/java/sortflights/DataFlightsInput.java
-/home/user/hadoop/lab1/src/main/java/sortflights/DelayedFlightsComparator.java
-/home/user/hadoop/lab1/src/main/java/sortflights/DelayedFlightsReducer.java
