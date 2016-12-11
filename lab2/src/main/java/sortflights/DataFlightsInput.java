@@ -1,6 +1,5 @@
 package sortflights;
 
-import com.sun.istack.internal.NotNull;
 import org.apache.hadoop.io.WritableComparable;
 
 import java.io.DataInput;
@@ -19,39 +18,36 @@ public class DataFlightsInput implements WritableComparable {
     private static final int INDEX_AIR_TIME = 2;
     private static final int INDEX_CANCELLED = 4;
 
-    public DataFlightsInput() {}
+    //unused
+    public DataFlightsInput() {
+    }
 
     public DataFlightsInput(String str) {
         String[] tmp = str.split(",");
-        try {
-            int size = tmp.length;
-            if (!tmp[size - INDEX_ARR_DELAY].equals("\"ARR_DELAY\"") && !tmp[size - INDEX_ARR_DELAY].isEmpty()) {
-                this.arrDelay = Double.parseDouble(tmp[size - INDEX_ARR_DELAY]);
-            }
-            if (!tmp[size - INDEX_AIROPORT_ID].equals("\"DEST_AIRPORT_ID\"") && !tmp[size - INDEX_AIROPORT_ID].isEmpty()) {
-                this.airportId = Double.parseDouble(tmp[size - INDEX_AIROPORT_ID]);
-            }
-            if (!tmp[size - INDEX_AIR_TIME].equals("\"AIR_TIME\"") && !tmp[size - INDEX_AIR_TIME].isEmpty()) {
-                this.airTime = Double.parseDouble(tmp[size - INDEX_AIR_TIME]);
-            }
-            if (!tmp[size - INDEX_CANCELLED].equals("\"CANCELLED\"") && !tmp[size - INDEX_CANCELLED].isEmpty()) {
-                this.cancelled = tmp[size - INDEX_CANCELLED].equals("1.00");
-            }
+        int size = tmp.length;
+        if (!tmp[size - INDEX_ARR_DELAY].equals("\"ARR_DELAY\"") && !tmp[size - INDEX_ARR_DELAY].isEmpty()) {
+            this.arrDelay = Double.parseDouble(tmp[size - INDEX_ARR_DELAY]);
         }
-        catch (NumberFormatException e){
-            System.out.println(e.getMessage());
+        if (!tmp[size - INDEX_AIROPORT_ID].equals("\"DEST_AIRPORT_ID\"") && !tmp[size - INDEX_AIROPORT_ID].isEmpty()) {
+            this.airportId = Double.parseDouble(tmp[size - INDEX_AIROPORT_ID]);
+        }
+        if (!tmp[size - INDEX_AIR_TIME].equals("\"AIR_TIME\"") && !tmp[size - INDEX_AIR_TIME].isEmpty()) {
+            this.airTime = Double.parseDouble(tmp[size - INDEX_AIR_TIME]);
+        }
+        if (!tmp[size - INDEX_CANCELLED].equals("\"CANCELLED\"") && !tmp[size - INDEX_CANCELLED].isEmpty()) {
+            this.cancelled = tmp[size - INDEX_CANCELLED].equals("1.00");
         }
     }
 
     @Override
     public int compareTo(@SuppressWarnings("NullableProblems") Object o) {
-        if (!(o instanceof DataFlightsInput)){
+        if (!(o instanceof DataFlightsInput)) {
             System.out.println("Error: Incomparable types");
             return -1;
         }
         DataFlightsInput second = (DataFlightsInput) o;
         if (this.cancelled != second.cancelled)
-            return (this.cancelled? -1 : 1);
+            return (this.cancelled ? -1 : 1);
         else if (this.arrDelay != second.arrDelay)
             return (this.arrDelay - second.arrDelay > 0 ? -1 : 1);
         else if (this.airportId != second.airportId)
@@ -98,10 +94,12 @@ public class DataFlightsInput implements WritableComparable {
         return arrDelay;
     }
 
+    //unused
     public double getAirportId() {
         return airportId;
     }
 
+    //unused
     public double getAirTime() {
         return airTime;
     }
