@@ -18,25 +18,31 @@ public class DataFlightsInput implements WritableComparable {
     private static final int INDEX_AIR_TIME = 2;
     private static final int INDEX_CANCELLED = 4;
 
+    private static DataFlightsInput parse(String str) {
+        String[] tmp = str.split(",");
+        DataFlightsInput w = new DataFlightsInput();
+        int size = tmp.length;
+        if (!tmp[size - INDEX_ARR_DELAY].equals("\"ARR_DELAY\"") && !tmp[size - INDEX_ARR_DELAY].isEmpty()) {
+            w.arrDelay = Double.parseDouble(tmp[size - INDEX_ARR_DELAY]);
+        }
+        if (!tmp[size - INDEX_AIROPORT_ID].equals("\"DEST_AIRPORT_ID\"") && !tmp[size - INDEX_AIROPORT_ID].isEmpty()) {
+            w.airportId = Double.parseDouble(tmp[size - INDEX_AIROPORT_ID]);
+        }
+        if (!tmp[size - INDEX_AIR_TIME].equals("\"AIR_TIME\"") && !tmp[size - INDEX_AIR_TIME].isEmpty()) {
+            w.airTime = Double.parseDouble(tmp[size - INDEX_AIR_TIME]);
+        }
+        if (!tmp[size - INDEX_CANCELLED].equals("\"CANCELLED\"") && !tmp[size - INDEX_CANCELLED].isEmpty()) {
+            w.cancelled = tmp[size - INDEX_CANCELLED].equals("1.00");
+        }
+        return w;
+    }
+
     //unused
     public DataFlightsInput() {
     }
 
     public DataFlightsInput(String str) {
-        String[] tmp = str.split(",");
-        int size = tmp.length;
-        if (!tmp[size - INDEX_ARR_DELAY].equals("\"ARR_DELAY\"") && !tmp[size - INDEX_ARR_DELAY].isEmpty()) {
-            this.arrDelay = Double.parseDouble(tmp[size - INDEX_ARR_DELAY]);
-        }
-        if (!tmp[size - INDEX_AIROPORT_ID].equals("\"DEST_AIRPORT_ID\"") && !tmp[size - INDEX_AIROPORT_ID].isEmpty()) {
-            this.airportId = Double.parseDouble(tmp[size - INDEX_AIROPORT_ID]);
-        }
-        if (!tmp[size - INDEX_AIR_TIME].equals("\"AIR_TIME\"") && !tmp[size - INDEX_AIR_TIME].isEmpty()) {
-            this.airTime = Double.parseDouble(tmp[size - INDEX_AIR_TIME]);
-        }
-        if (!tmp[size - INDEX_CANCELLED].equals("\"CANCELLED\"") && !tmp[size - INDEX_CANCELLED].isEmpty()) {
-            this.cancelled = tmp[size - INDEX_CANCELLED].equals("1.00");
-        }
+        parse(str);
     }
 
     @Override
@@ -108,3 +114,4 @@ public class DataFlightsInput implements WritableComparable {
         return cancelled;
     }
 }
+

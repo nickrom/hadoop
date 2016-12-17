@@ -12,7 +12,7 @@ public class DelayedFlightsComparator extends WritableComparator {
     public int compare(WritableComparable first, WritableComparable second) {
         DataFlightsInput f = (DataFlightsInput) first;
         DataFlightsInput s = (DataFlightsInput) second;
-        return (f.compareTo(s));
+        return ((int)f.getArrDelay()-(int)s.getArrDelay());
     }
 
 }
