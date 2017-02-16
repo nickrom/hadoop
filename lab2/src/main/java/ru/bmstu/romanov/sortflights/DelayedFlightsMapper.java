@@ -10,8 +10,9 @@ public class DelayedFlightsMapper extends Mapper<LongWritable, Text, DataFlights
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-            DataFlightsInput flight = new DataFlightsInput(value.toString());
-            if (flight.isCancelled() || flight.getArrDelay() > 0)
+            DataFlightsInput flight = DataFlightsInput.parse(value.toString());
+            if (flight.isCancelled() || flight.getArrDelay() > 0) {
                 context.write(flight, value);
+            }
     }
 }

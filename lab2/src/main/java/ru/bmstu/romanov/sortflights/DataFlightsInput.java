@@ -18,7 +18,7 @@ public class DataFlightsInput implements WritableComparable {
     private static final int INDEX_AIR_TIME = 2;
     private static final int INDEX_CANCELLED = 4;
 
-    private static DataFlightsInput parse(String str) {
+    public static DataFlightsInput parse(String str) {
         String[] tmp = str.split(",");
         DataFlightsInput w = new DataFlightsInput();
         int size = tmp.length;
@@ -39,10 +39,6 @@ public class DataFlightsInput implements WritableComparable {
 
     //unused
     public DataFlightsInput() {
-    }
-
-    public DataFlightsInput(String str) {
-        parse(str);
     }
 
     @Override
