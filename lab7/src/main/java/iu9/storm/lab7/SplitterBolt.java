@@ -20,12 +20,12 @@ public class SplitterBolt  extends BaseRichBolt {
     }
 
     @Override
-    public void execute(Tuple input) {
-        String [] words = input.getStringByField("line").split("[^a-zA-Zа-яА-Я]+");
+    public void execute(Tuple tuple) {
+        String [] words = tuple.getStringByField("line").split("[^a-zA-Zа-яА-Я]+");
         for (String word : words) {
-            outputCollector.emit(input,new Values(word.toLowerCase()));
+            outputCollector.emit(tuple,new Values(word.toLowerCase()));
         }
-        outputCollector.ack(input);
+        outputCollector.ack(tuple);
     }
 
     @Override

@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class CounterBolt extends BaseRichBolt {
 
+    private OutputCollector outputCollector;
     private Map<String,Integer> frequencyDict;
 
     private static void printToFile(String key, Integer value) {
@@ -27,19 +28,27 @@ public class CounterBolt extends BaseRichBolt {
 
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector output) {
-        frequencyDict = new HashMap<>();
+        this.frequencyDict = new HashMap<>();
+        this.outputCollector = output;
     }
 
     @Override
-    public void execute(Tuple input) {
-        if (input.getSourceStreamId().equals("sync")) {
+    public void execute(Tuple tuple) {
+        if (tuple.getSourceStreamId().equals("sync")) {
             frequencyDict.forEach(CounterBolt::printToFile);
             frequencyDict.clear();
         }
         else {
-            String word = input.getStringByField("word");
-            int count = frequencyDict.getOrDefault(word, 0);
-            frequencyDict.put(word, count + 1);
+            try {
+                String word = tuple.getStringByField("word");
+                int count = frequencyDict.getOrDefault(word, 0);
+                frequencyDict.put(word, count + 1);
+                outputCollector.ack(tuple);
+            }
+            catch(Exception ex) {
+                System.out.println(tuple);
+                outputCollector.fail(tuple);
+            }
         }
     }
 
